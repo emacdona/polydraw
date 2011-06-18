@@ -1,6 +1,7 @@
 package net.edmacdonald.playground.java2d;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class GraphControlPanel extends JPanel{
     private JSlider horizontalTransltion;
@@ -11,6 +12,9 @@ public class GraphControlPanel extends JPanel{
         horizontalTransltion = new JSlider();
         verticalTranslaction = new JSlider();
         rotationAngle = new JSlider();
+
+        BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        setLayout(layout);
 
         add(horizontalTransltion);
         add(verticalTranslaction);

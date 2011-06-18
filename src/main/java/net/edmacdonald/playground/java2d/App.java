@@ -11,9 +11,7 @@ public class App extends JFrame {
         setSize(300, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pp.add(gcp);
-        getContentPane().add(pp);
-        //getContentPane().add(gcp);
+        getContentPane().add(new MainPanel());
     }
 
     public static void main( String[] args )
