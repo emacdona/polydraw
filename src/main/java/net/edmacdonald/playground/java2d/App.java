@@ -8,7 +8,7 @@ public class App extends JFrame {
 
     public App(){
         setTitle("Polygons");
-        setSize(300, 300);
+        setSize( 800, 800 );
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().add(new MainPanel());
