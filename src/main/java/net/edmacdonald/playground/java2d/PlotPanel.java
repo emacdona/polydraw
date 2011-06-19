@@ -5,8 +5,10 @@ import org.apache.commons.logging.LogFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.Range;
 import org.jfree.data.xy.DefaultTableXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
@@ -17,31 +19,28 @@ import java.awt.*;
 
 public class PlotPanel extends JPanel{
 
-    private Integer radius;
-    private Integer pointCount;
-    private Integer horizontalOffset;
-    private Integer verticalOffset;
-    private Integer rotationAngle;
+    private Integer radius = 1;
+    private Integer pointCount = 10;
+    private Integer horizontalOffset = 0;
+    private Integer verticalOffset = 0;
+    private Integer rotationAngle = 0;
 
     private ChartPanel chartPanel;
 
     private Log log = LogFactory.getLog(PlotPanel.class);
 
     public PlotPanel(){
-        radius = 1;
-        pointCount = 10;
-        horizontalOffset = 0;
-        verticalOffset = 0;
-        rotationAngle = 0;
-
-        XYPlot plot = new XYPlot();
 
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(getSeries());
 
         JFreeChart chart = ChartFactory.createXYLineChart(null, null, null, dataset, PlotOrientation.VERTICAL, false, false, false);
 
+        chart.getXYPlot().getDomainAxis().setRange(new Range(-10, 10));
+        chart.getXYPlot().getRangeAxis().setRange(new Range(-10, 10));
+
         chartPanel = new ChartPanel(chart);
+
         add(chartPanel);
         log.debug("Chart Panel dimension: " + chartPanel.getPreferredSize());
         setPreferredSize( chartPanel.getPreferredSize() );
@@ -50,6 +49,11 @@ public class PlotPanel extends JPanel{
     }
 
     public void plot() {
+        XYPlot plot = chartPanel.getChart().getXYPlot();
+        plot.setDataset(null);
+        XYSeriesCollection dataset = new XYSeriesCollection();
+        dataset.addSeries(getSeries());
+        plot.setDataset(dataset);
     }
 
     public XYSeries getSeries() {
@@ -73,6 +77,7 @@ public class PlotPanel extends JPanel{
 
     public void setRadius(Integer radius) {
         this.radius = radius;
+        log.trace("Radius changed. New value: " + radius);
     }
 
     public Integer getPointCount() {
@@ -81,6 +86,7 @@ public class PlotPanel extends JPanel{
 
     public void setPointCount(Integer pointCount) {
         this.pointCount = pointCount;
+        log.trace("Point count changed. New value: " + pointCount);
     }
 
     public Integer getHorizontalOffset() {

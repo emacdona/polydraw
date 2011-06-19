@@ -57,13 +57,9 @@ public class GraphControlPanel extends JPanel{
         return rotationAngle;
     }
 
-    /*
-        Create a nice wrapper panel around a slider that gives you some visual indication
-        of what value it has and what that value represents.
-     */
     private void addLabelledSlider(String label, final JSlider slider, final Integer resetValue){
         JLabel jlabel = new JLabel(label);
-        final JTextArea sliderValue = new JTextArea(Integer.valueOf(slider.getValue()).toString());
+        final JLabel sliderValue = new JLabel(Integer.valueOf(slider.getValue()).toString());
         JButton reset = new JButton("Reset");
 
         slider.addChangeListener(new ChangeListener() {

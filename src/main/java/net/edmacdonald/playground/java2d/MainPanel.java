@@ -18,10 +18,29 @@ public class MainPanel extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        controls.getRadius().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                plot.setRadius(((JSlider) changeEvent.getSource()).getValue());
+                plot.plot();
+                log.trace("Change Event source: " + changeEvent.getSource());
+            }
+        });
+
+        controls.getPointCount().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent changeEvent) {
+                plot.setPointCount(((JSlider) changeEvent.getSource()).getValue());
+                plot.plot();
+                log.trace("Change Event source: " + changeEvent.getSource());
+            }
+        });
+
         controls.getHorizontalTranslation().addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
                 plot.setHorizontalOffset(((JSlider) changeEvent.getSource()).getValue());
+                plot.plot();
                 log.trace("Change Event source: " + changeEvent.getSource());
             }
         });
@@ -30,6 +49,7 @@ public class MainPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
                 plot.setVerticalOffset(((JSlider) changeEvent.getSource()).getValue());
+                plot.plot();
                 log.trace("Change Event source: " + changeEvent.getSource());
             }
         });
@@ -38,6 +58,7 @@ public class MainPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
                 plot.setRotationAngle(((JSlider) changeEvent.getSource()).getValue());
+                plot.plot();
                 log.trace("Change Event source: " + changeEvent.getSource());
             }
         });
