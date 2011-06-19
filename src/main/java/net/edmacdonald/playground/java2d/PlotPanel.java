@@ -7,6 +7,8 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.xy.DefaultTableXYDataset;
+import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -20,6 +22,8 @@ public class PlotPanel extends JPanel{
     private Integer horizontalOffset;
     private Integer verticalOffset;
     private Integer rotationAngle;
+
+    private ChartPanel chartPanel;
 
     private Log log = LogFactory.getLog(PlotPanel.class);
 
@@ -37,12 +41,15 @@ public class PlotPanel extends JPanel{
 
         JFreeChart chart = ChartFactory.createXYLineChart(null, null, null, dataset, PlotOrientation.VERTICAL, false, false, false);
 
-        ChartPanel cpanel = new ChartPanel(chart);
-        cpanel.setPreferredSize(new Dimension(200, 200));
-        setPreferredSize(new Dimension(200,200));
-        add(cpanel);
+        chartPanel = new ChartPanel(chart);
+        add(chartPanel);
+        log.debug("Chart Panel dimension: " + chartPanel.getPreferredSize());
+        setPreferredSize( chartPanel.getPreferredSize() );
         setBorder(BorderFactory.createEtchedBorder());
         setVerifyInputWhenFocusTarget(true);
+    }
+
+    public void plot() {
     }
 
     public XYSeries getSeries() {
@@ -82,6 +89,7 @@ public class PlotPanel extends JPanel{
 
     public void setHorizontalOffset(Integer horizontalOffset) {
         this.horizontalOffset = horizontalOffset;
+        log.trace("Horizontal offset changed. New value: " + horizontalOffset);
     }
 
     public Integer getVerticalOffset() {
@@ -90,6 +98,7 @@ public class PlotPanel extends JPanel{
 
     public void setVerticalOffset(Integer verticalOffset) {
         this.verticalOffset = verticalOffset;
+        log.trace("Vertical offset changed. New value: " + verticalOffset);
     }
 
     public Integer getRotationAngle() {
@@ -98,5 +107,10 @@ public class PlotPanel extends JPanel{
 
     public void setRotationAngle(Integer rotationAngle) {
         this.rotationAngle = rotationAngle;
+        log.trace("Rotation angle changed. New value: " + rotationAngle);
+    }
+
+    public ChartPanel getChartPanel() {
+        return chartPanel;
     }
 }
