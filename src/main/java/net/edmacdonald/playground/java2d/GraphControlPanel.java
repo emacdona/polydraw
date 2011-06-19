@@ -1,6 +1,7 @@
 package net.edmacdonald.playground.java2d;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -20,14 +21,20 @@ public class GraphControlPanel extends JPanel{
 
     public GraphControlPanel() {
 
-        BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        setLayout(layout);
+        GridLayout layout = new GridLayout(
+                5,  /* rows */
+                4,  /* columns */
+                2,  /* hgap */
+                0   /* vgap */
+        );
 
-        add(getLabelledSlider("Radius", radius, INITIAL_RADIUS));
-        add(getLabelledSlider("Point Count", pointCount, INITIAL_POINT_COUNT));
-        add(getLabelledSlider("Horizontal Translation", horizontalTranslation, INITIAL_H_TRANS));
-        add(getLabelledSlider("Vertical Translation", verticalTranslation, INITIAL_V_TRANS));
-        add(getLabelledSlider("Rotation Angle", rotationAngle, INITIAL_ROT_ANG));
+        this.setLayout(layout);
+
+        addLabelledSlider("Radius", radius, INITIAL_RADIUS);
+        addLabelledSlider("Point Count", pointCount, INITIAL_POINT_COUNT);
+        addLabelledSlider("Horizontal Translation", horizontalTranslation, INITIAL_H_TRANS);
+        addLabelledSlider("Vertical Translation", verticalTranslation, INITIAL_V_TRANS);
+        addLabelledSlider("Rotation Angle", rotationAngle, INITIAL_ROT_ANG);
     }
 
     public JSlider getRadius() {
@@ -54,9 +61,7 @@ public class GraphControlPanel extends JPanel{
         Create a nice wrapper panel around a slider that gives you some visual indication
         of what value it has and what that value represents.
      */
-    private JPanel getLabelledSlider(String label, final JSlider slider, final Integer resetValue){
-        JPanel container = new JPanel();
-
+    private void addLabelledSlider(String label, final JSlider slider, final Integer resetValue){
         JLabel jlabel = new JLabel(label);
         final JTextArea sliderValue = new JTextArea(Integer.valueOf(slider.getValue()).toString());
         JButton reset = new JButton("Reset");
@@ -79,14 +84,15 @@ public class GraphControlPanel extends JPanel{
             }
         });
 
-        container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
-        container.setBorder(BorderFactory.createEtchedBorder());
+        Border border = BorderFactory.createEtchedBorder();
+        jlabel.setBorder(border);
+        slider.setBorder(border);
+        sliderValue.setBorder(border);
+        reset.setBorder(border);
 
-        container.add(jlabel);
-        container.add(slider);
-        container.add(sliderValue);
-        container.add(reset);
-
-        return container;
+        this.add(jlabel);
+        this.add(slider);
+        this.add(sliderValue);
+        this.add(reset);
     }
 }
