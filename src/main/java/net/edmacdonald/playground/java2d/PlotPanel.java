@@ -5,17 +5,13 @@ import org.apache.commons.logging.LogFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.Range;
-import org.jfree.data.xy.DefaultTableXYDataset;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class PlotPanel extends JPanel{
 
@@ -71,17 +67,9 @@ public class PlotPanel extends JPanel{
         return series;
     }
 
-    public Integer getRadius() {
-        return radius;
-    }
-
     public void setRadius(Integer radius) {
         this.radius = radius;
         log.trace("Radius changed. New value: " + radius);
-    }
-
-    public Integer getPointCount() {
-        return pointCount;
     }
 
     public void setPointCount(Integer pointCount) {
@@ -89,17 +77,9 @@ public class PlotPanel extends JPanel{
         log.trace("Point count changed. New value: " + pointCount);
     }
 
-    public Integer getHorizontalOffset() {
-        return horizontalOffset;
-    }
-
     public void setHorizontalOffset(Integer horizontalOffset) {
         this.horizontalOffset = horizontalOffset;
         log.trace("Horizontal offset changed. New value: " + horizontalOffset);
-    }
-
-    public Integer getVerticalOffset() {
-        return verticalOffset;
     }
 
     public void setVerticalOffset(Integer verticalOffset) {
@@ -107,16 +87,8 @@ public class PlotPanel extends JPanel{
         log.trace("Vertical offset changed. New value: " + verticalOffset);
     }
 
-    public Integer getRotationAngle() {
-        return rotationAngle;
-    }
-
     public void setRotationAngle(Integer rotationAngle) {
         this.rotationAngle = rotationAngle;
         log.trace("Rotation angle changed. New value: " + rotationAngle);
-    }
-
-    public ChartPanel getChartPanel() {
-        return chartPanel;
     }
 }
