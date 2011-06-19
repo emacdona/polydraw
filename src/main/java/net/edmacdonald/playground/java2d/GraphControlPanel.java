@@ -14,7 +14,7 @@ public class GraphControlPanel extends JPanel{
     private final Integer INITIAL_ROT_ANG = 0;
 
     private JSlider radius = new JSlider(1, 10, INITIAL_RADIUS);
-    private JSlider pointCount = new JSlider(3,100, INITIAL_POINT_COUNT);
+    private JSlider pointCount = new JSlider(3,12, INITIAL_POINT_COUNT);
     private JSlider horizontalTranslation = new JSlider(-10, 10, INITIAL_H_TRANS);
     private JSlider verticalTranslation = new JSlider(-10, 10, INITIAL_V_TRANS);
     private JSlider rotationAngle = new JSlider(0, 360, INITIAL_ROT_ANG);
