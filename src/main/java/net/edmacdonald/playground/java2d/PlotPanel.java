@@ -19,7 +19,7 @@ import java.awt.*;
 
 public class PlotPanel extends JPanel{
 
-    private Integer radius = 1;
+    private Integer radius = 5;
     private Integer pointCount = 10;
     private Integer horizontalOffset = 0;
     private Integer verticalOffset = 0;
