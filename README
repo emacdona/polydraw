@@ -2,3 +2,9 @@
 A little app for playing with polygons.
 
 Doesn't do much right now.
+
+To get an executable jar: 
+mvn clean assembly:assembly
+
+(I run within my IDE, but that command facilitates sending a nice executable jar
+to someone else.)

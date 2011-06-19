@@ -61,7 +61,7 @@ public class PlotPanel extends JPanel{
         double x, y, theta;
 
         for(int i=0; i<=pointCount; i++) {
-            theta = (Math.PI / 180) * (360 * i / pointCount) + rotationAngle;
+            theta = (Math.PI / 180) * ((360 * i / pointCount) + rotationAngle);
             x = radius * Math.cos(theta) + horizontalOffset;
             y = radius * Math.sin(theta) + verticalOffset;
             log.debug("Adding coordinates <x, y>: <" + x + ", " + y + ">");
