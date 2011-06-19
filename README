@@ -1,8 +1,6 @@
 
 A little app for playing with polygons.
 
-Doesn't do much right now.
-
 To get an executable jar: 
 mvn clean assembly:assembly
 
