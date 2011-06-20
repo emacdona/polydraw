@@ -30,6 +30,7 @@ public class PlotPanel extends JPanel{
 
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(getSeries());
+        dataset.addSeries(getCircle());
 
         JFreeChart chart = ChartFactory.createXYLineChart(null, null, null, dataset, PlotOrientation.VERTICAL, false, false, false);
 
@@ -57,6 +58,7 @@ public class PlotPanel extends JPanel{
         plot.setDataset(null);
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(getSeries());
+        dataset.addSeries(getCircle());
         plot.setDataset(dataset);
     }
 
@@ -72,6 +74,19 @@ public class PlotPanel extends JPanel{
             series.add(x,y);
         }
 
+        return series;
+    }
+
+    public XYSeries getCircle() {
+        XYSeries series = new XYSeries("Circle", false);
+        double x, y, theta;
+
+        for(int i=0; i<=200; i++) {
+            theta = (Math.PI / 180) * ((360 * i / 200) + rotationAngle);
+            x = radius * Math.cos(theta) + horizontalOffset;
+            y = radius * Math.sin(theta) + verticalOffset;
+            series.add(x,y);
+        }
         return series;
     }
 
