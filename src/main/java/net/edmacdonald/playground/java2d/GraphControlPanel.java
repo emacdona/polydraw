@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
 
 public class GraphControlPanel extends JPanel{
     private final Integer INITIAL_RADIUS = 5;
-    private final Integer INITIAL_POINT_COUNT = 10;
+    private final Integer INITIAL_POINT_COUNT = 3;
     private final Integer INITIAL_H_TRANS = 0;
     private final Integer INITIAL_V_TRANS = 0;
-    private final Integer INITIAL_ROT_ANG = 0;
+    private final Integer INITIAL_ROT_ANG = 90;
 
     private JSlider radius = new JSlider(1, 10, INITIAL_RADIUS);
     private JSlider pointCount = new JSlider(3,12, INITIAL_POINT_COUNT);
