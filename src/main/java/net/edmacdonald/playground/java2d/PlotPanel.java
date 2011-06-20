@@ -12,6 +12,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class PlotPanel extends JPanel{
 
@@ -36,6 +37,8 @@ public class PlotPanel extends JPanel{
         chart.getXYPlot().getRangeAxis().setRange(new Range(-10, 10));
 
         chartPanel = new ChartPanel(chart);
+
+        chartPanel.setPreferredSize(new Dimension(500,500));
 
         add(chartPanel);
         log.debug("Chart Panel dimension: " + chartPanel.getPreferredSize());
