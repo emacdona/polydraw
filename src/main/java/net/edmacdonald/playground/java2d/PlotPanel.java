@@ -45,7 +45,12 @@ public class PlotPanel extends JPanel{
     }
 
     public void plot() {
-        XYPlot plot = chartPanel.getChart().getXYPlot();
+        JFreeChart chart = chartPanel.getChart();
+        XYPlot plot = chart.getXYPlot();
+
+        chart.getXYPlot().getDomainAxis().setRange(new Range(-10, 10));
+        chart.getXYPlot().getRangeAxis().setRange(new Range(-10, 10));
+
         plot.setDataset(null);
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(getSeries());
