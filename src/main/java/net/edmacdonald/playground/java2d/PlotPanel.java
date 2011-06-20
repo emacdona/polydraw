@@ -7,6 +7,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.Range;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -21,6 +22,7 @@ public class PlotPanel extends JPanel{
     private Integer horizontalOffset = 0;
     private Integer verticalOffset = 0;
     private Integer rotationAngle = 90;
+    private Boolean graphicalDebug = false;
 
     private ChartPanel chartPanel;
 
@@ -28,16 +30,12 @@ public class PlotPanel extends JPanel{
 
     public PlotPanel(){
 
-        XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(getSeries());
-        dataset.addSeries(getCircle());
-
-        JFreeChart chart = ChartFactory.createXYLineChart(null, null, null, dataset, PlotOrientation.VERTICAL, false, false, false);
+        JFreeChart chart = ChartFactory.createXYLineChart(null, null, null, null, PlotOrientation.VERTICAL, false, false, false);
 
         chart.getXYPlot().getDomainAxis().setRange(new Range(-10, 10));
         chart.getXYPlot().getRangeAxis().setRange(new Range(-10, 10));
-
         chartPanel = new ChartPanel(chart);
+        plot();
 
         chartPanel.setPreferredSize(new Dimension(500,500));
 
@@ -51,14 +49,34 @@ public class PlotPanel extends JPanel{
     public void plot() {
         JFreeChart chart = chartPanel.getChart();
         XYPlot plot = chart.getXYPlot();
+        XYItemRenderer renderer = plot.getRenderer();
 
         chart.getXYPlot().getDomainAxis().setRange(new Range(-10, 10));
         chart.getXYPlot().getRangeAxis().setRange(new Range(-10, 10));
 
         plot.setDataset(null);
         XYSeriesCollection dataset = new XYSeriesCollection();
+
         dataset.addSeries(getSeries());
+        renderer.setSeriesPaint(0, Color.BLUE);
+
         dataset.addSeries(getCircle());
+        renderer.setSeriesPaint(1, Color.RED);
+
+        if(graphicalDebug) {
+            dataset.addSeries(getDisplacementVector());
+            renderer.setSeriesPaint(2, Color.GRAY);
+
+            dataset.addSeries(getHorizon());
+            renderer.setSeriesPaint(3, Color.BLACK);
+
+            dataset.addSeries(getInclination());
+            renderer.setSeriesPaint(4, Color.BLACK);
+
+            dataset.addSeries(getInclinationArc());
+            renderer.setSeriesPaint(5, Color.BLACK);
+        }
+
         plot.setDataset(dataset);
     }
 
@@ -90,6 +108,54 @@ public class PlotPanel extends JPanel{
         return series;
     }
 
+    public XYSeries getDisplacementVector() {
+        XYSeries series = new XYSeries("Displacement Vector", false);
+
+        series.add(0,0);
+        series.add(horizontalOffset, verticalOffset);
+
+        return series;
+    }
+
+    public XYSeries getHorizon() {
+        XYSeries series = new XYSeries("Horizon", false);
+
+        series.add(horizontalOffset, verticalOffset);
+        series.add(horizontalOffset + radius, verticalOffset);
+
+        return series;
+    }
+
+    public XYSeries getInclination() {
+        XYSeries series = new XYSeries("Horizon", false);
+        double x, y, theta;
+
+        theta = (Math.PI / 180) * rotationAngle;
+        x = radius * Math.cos(theta) + horizontalOffset;
+        y = radius * Math.sin(theta) + verticalOffset;
+
+        series.add(horizontalOffset, verticalOffset);
+        series.add(x, y);
+
+        return series;
+    }
+
+    public XYSeries getInclinationArc() {
+        XYSeries series = new XYSeries("Circle", false);
+        double x, y, theta;
+        int t = 0;
+
+        while(t < rotationAngle) {
+            theta = (Math.PI / 180) * t;
+            x = 0.25 * radius * Math.cos(theta) + horizontalOffset;
+            y = 0.25 * radius * Math.sin(theta) + verticalOffset;
+            series.add(x,y);
+            t++;
+        }
+
+        return series;
+    }
+
     public void setRadius(Integer radius) {
         this.radius = radius;
         log.trace("Radius changed. New value: " + radius);
@@ -113,5 +179,9 @@ public class PlotPanel extends JPanel{
     public void setRotationAngle(Integer rotationAngle) {
         this.rotationAngle = rotationAngle;
         log.trace("Rotation angle changed. New value: " + rotationAngle);
+    }
+
+    public void setGraphicalDebug(Boolean graphicalDebug) {
+        this.graphicalDebug = graphicalDebug;
     }
 }

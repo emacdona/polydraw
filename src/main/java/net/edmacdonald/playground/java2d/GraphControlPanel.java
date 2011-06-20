@@ -1,5 +1,7 @@
 package net.edmacdonald.playground.java2d;
 
+import com.sun.tools.internal.ws.processor.model.java.JavaArrayType;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
@@ -7,6 +9,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
 
 public class GraphControlPanel extends JPanel{
     private final Integer INITIAL_RADIUS = 5;
@@ -21,10 +25,15 @@ public class GraphControlPanel extends JPanel{
     private JSlider verticalTranslation = new JSlider(-10, 10, INITIAL_V_TRANS);
     private JSlider rotationAngle = new JSlider(0, 360, INITIAL_ROT_ANG);
 
+    private JButton resetAll = new JButton("Reset All");
+    private JCheckBox graphicalDebug = new JCheckBox("Graphical Debug", false);
+
+    private List<JButton> resetButtons = new ArrayList<JButton>();
+
     public GraphControlPanel() {
 
         GridLayout layout = new GridLayout(
-                5,  /* rows */
+                6,  /* rows */
                 4,  /* columns */
                 2,  /* hgap */
                 0   /* vgap */
@@ -37,6 +46,11 @@ public class GraphControlPanel extends JPanel{
         addLabelledSlider("Horizontal Translation", horizontalTranslation, INITIAL_H_TRANS);
         addLabelledSlider("Vertical Translation", verticalTranslation, INITIAL_V_TRANS);
         addLabelledSlider("Rotation Angle", rotationAngle, INITIAL_ROT_ANG);
+
+        this.add(new JPanel());
+        this.add(graphicalDebug);
+        this.add(resetAll);
+        this.add(new JPanel());
     }
 
     public JSlider getRadius() {
@@ -57,6 +71,18 @@ public class GraphControlPanel extends JPanel{
 
     public JSlider getRotationAngle() {
         return rotationAngle;
+    }
+
+    public JButton getResetAll() {
+        return resetAll;
+    }
+
+    public JCheckBox getGraphicalDebug() {
+        return graphicalDebug;
+    }
+
+    public List<JButton> getResetButtons() {
+        return resetButtons;
     }
 
     private void addLabelledSlider(String label, final JSlider slider, final Integer resetValue){
@@ -87,6 +113,8 @@ public class GraphControlPanel extends JPanel{
         slider.setBorder(border);
         sliderValue.setBorder(border);
         reset.setBorder(border);
+
+        resetButtons.add(reset);
 
         this.add(jlabel);
         this.add(slider);

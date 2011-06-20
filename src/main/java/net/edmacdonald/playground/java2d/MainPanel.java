@@ -6,6 +6,8 @@ import org.apache.commons.logging.LogFactory;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainPanel extends JPanel {
     private final PlotPanel plot;
@@ -60,6 +62,29 @@ public class MainPanel extends JPanel {
                 plot.setRotationAngle(((JSlider) changeEvent.getSource()).getValue());
                 plot.plot();
                 log.trace("Change Event source: " + changeEvent.getSource());
+            }
+        });
+
+        controls.getResetAll().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                for(JButton button : controls.getResetButtons()) {
+                    button.doClick();
+                }
+            }
+        });
+
+        controls.getGraphicalDebug().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(controls.getGraphicalDebug().isSelected()) {
+                    plot.setGraphicalDebug(true);
+                }
+                else {
+                    plot.setGraphicalDebug(false);
+                }
+
+                plot.plot();
             }
         });
 
