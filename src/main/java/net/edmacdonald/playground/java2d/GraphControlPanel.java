@@ -5,6 +5,8 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GraphControlPanel extends JPanel{
     private final Integer INITIAL_RADIUS = 5;
@@ -73,9 +75,9 @@ public class GraphControlPanel extends JPanel{
             }
         });
 
-        reset.addChangeListener(new ChangeListener() {
+        reset.addActionListener( new ActionListener() {
             @Override
-            public void stateChanged(ChangeEvent changeEvent) {
+            public void actionPerformed(ActionEvent actionEvent) {
                 slider.setValue(resetValue);
             }
         });
