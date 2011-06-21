@@ -38,6 +38,8 @@ public class PlotPanel extends JPanel{
         plot();
 
         chartPanel.setPreferredSize(new Dimension(500,500));
+        chartPanel.setDomainZoomable(false);
+        chartPanel.setRangeZoomable(false);
 
         add(chartPanel);
         log.debug("Chart Panel dimension: " + chartPanel.getPreferredSize());
@@ -50,9 +52,6 @@ public class PlotPanel extends JPanel{
         JFreeChart chart = chartPanel.getChart();
         XYPlot plot = chart.getXYPlot();
         XYItemRenderer renderer = plot.getRenderer();
-
-        chart.getXYPlot().getDomainAxis().setRange(new Range(-10, 10));
-        chart.getXYPlot().getRangeAxis().setRange(new Range(-10, 10));
 
         plot.setDataset(null);
         XYSeriesCollection dataset = new XYSeriesCollection();
