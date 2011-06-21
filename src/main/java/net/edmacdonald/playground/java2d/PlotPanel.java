@@ -68,7 +68,7 @@ public class PlotPanel extends JPanel{
             renderer.setSeriesPaint(2, Color.GRAY);
 
             dataset.addSeries(getHorizon());
-            renderer.setSeriesPaint(3, Color.BLACK);
+            renderer.setSeriesPaint(3, Color.GRAY);
 
             dataset.addSeries(getInclination());
             renderer.setSeriesPaint(4, Color.BLACK);
