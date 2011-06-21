@@ -13,6 +13,7 @@ public class MainPanel extends JPanel {
     private final PlotPanel plot;
     private GraphControlPanel controls;
     private Log log = LogFactory.getLog(MainPanel.class);
+    private Boolean delayPlot = false;
 
     public MainPanel() {
         plot = new PlotPanel();
@@ -24,7 +25,9 @@ public class MainPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
                 plot.setRadius(((JSlider) changeEvent.getSource()).getValue());
-                plot.plot();
+                if(!delayPlot){
+                    plot.plot();
+                }
                 log.trace("Change Event source: " + changeEvent.getSource());
             }
         });
@@ -33,7 +36,9 @@ public class MainPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
                 plot.setPointCount(((JSlider) changeEvent.getSource()).getValue());
-                plot.plot();
+                if(!delayPlot){
+                    plot.plot();
+                }
                 log.trace("Change Event source: " + changeEvent.getSource());
             }
         });
@@ -42,7 +47,9 @@ public class MainPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
                 plot.setHorizontalOffset(((JSlider) changeEvent.getSource()).getValue());
-                plot.plot();
+                if(!delayPlot){
+                    plot.plot();
+                }
                 log.trace("Change Event source: " + changeEvent.getSource());
             }
         });
@@ -51,7 +58,9 @@ public class MainPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
                 plot.setVerticalOffset(((JSlider) changeEvent.getSource()).getValue());
-                plot.plot();
+                if(!delayPlot){
+                    plot.plot();
+                }
                 log.trace("Change Event source: " + changeEvent.getSource());
             }
         });
@@ -60,7 +69,9 @@ public class MainPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent changeEvent) {
                 plot.setRotationAngle(((JSlider) changeEvent.getSource()).getValue());
-                plot.plot();
+                if(!delayPlot){
+                    plot.plot();
+                }
                 log.trace("Change Event source: " + changeEvent.getSource());
             }
         });
@@ -68,9 +79,15 @@ public class MainPanel extends JPanel {
         controls.getResetAll().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                delayPlot = true;
+
                 for(JButton button : controls.getResetButtons()) {
                     button.doClick();
                 }
+
+                delayPlot = false;
+
+                plot.plot();
             }
         });
 
