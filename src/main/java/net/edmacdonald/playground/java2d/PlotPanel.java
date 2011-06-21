@@ -145,12 +145,24 @@ public class PlotPanel extends JPanel{
         double x, y, theta;
         int t = 0;
 
-        while(t < rotationAngle) {
-            theta = (Math.PI / 180) * t;
-            x = 0.25 * radius * Math.cos(theta) + horizontalOffset;
-            y = 0.25 * radius * Math.sin(theta) + verticalOffset;
-            series.add(x,y);
-            t++;
+        if( (rotationAngle != 90) && (rotationAngle != 270) ){
+            while(t < rotationAngle) {
+                theta = (Math.PI / 180) * t;
+                x = 0.25 * radius * Math.cos(theta) + horizontalOffset;
+                y = 0.25 * radius * Math.sin(theta) + verticalOffset;
+                series.add(x,y);
+                t++;
+            }
+        }
+        else {
+            double d = 0.25 * radius;
+            int factor = rotationAngle == 90 ? 1 : -1;
+
+            series.add(horizontalOffset, verticalOffset);
+            series.add(horizontalOffset + d, verticalOffset);
+            series.add(horizontalOffset + d, verticalOffset + (factor * d) );
+            series.add((float )horizontalOffset, verticalOffset + (factor * d) );
+            series.add(horizontalOffset, verticalOffset);
         }
 
         return series;
